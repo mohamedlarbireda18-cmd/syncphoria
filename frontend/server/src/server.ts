@@ -21,6 +21,7 @@ const allowedOrigins = [
   'http://localhost:5173',
   'http://10.72.42.169:5173',
   'https://uncheck-sternness-scope.ngrok-free.dev',
+  /\.vercel\.app$/,
 ];
 
 const io = new Server(httpServer, {
