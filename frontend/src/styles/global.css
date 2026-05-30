@@ -1,0 +1,281 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+:root {
+  /* Colors */
+  --bg-primary: #0F0F0F;
+  --bg-secondary: #161616;
+  --bg-surface: #1A1A1A;
+  --border-color: #2A2A2A;
+  --border-light: #333333;
+  
+  /* Accent */
+  --accent-primary: #5B3DF5;
+  --accent-glow: rgba(91, 61, 245, 0.35);
+  --accent-strong: rgba(91, 61, 245, 0.6);
+  --accent-light: rgba(91, 61, 245, 0.15);
+  
+  /* Text */
+  --text-primary: #FFFFFF;
+  --text-secondary: #A1A1AA;
+  --text-muted: #71717A;
+  
+  /* Spacing */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+  --spacing-2xl: 48px;
+  --spacing-3xl: 64px;
+  --spacing-4xl: 96px;
+  
+  /* Border Radius */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --radius-xl: 24px;
+  --radius-2xl: 28px;
+  --radius-full: 9999px;
+  
+  /* Shadows */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.5);
+  --shadow-glow: 0 0 40px var(--accent-glow);
+  --shadow-glow-strong: 0 0 60px var(--accent-strong);
+  
+  /* Transitions */
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 350ms cubic-bezier(0.4, 0, 0.2, 1);
+  
+  /* Typography */
+  --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-family);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+::selection {
+  background: var(--accent-light);
+  color: var(--text-primary);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--border-light);
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px var(--accent-glow);
+  }
+  50% {
+    box-shadow: 0 0 40px var(--accent-strong);
+  }
+}
+
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+/* ======================== */
+/* TYPOGRAPHIE GLOBALE      */
+/* ======================== */
+
+/* Paragraphes généraux */
+p {
+  font-size: 17px;
+  line-height: 1.75;
+}
+
+/* Sous-titres (h3) */
+h3 {
+  font-size: 26px;
+}
+
+/* Sous-titres (h4) */
+h4 {
+  font-size: 22px;
+}
+
+/* Texte secondaire/muted */
+.text-secondary,
+.text-muted {
+  font-size: 17px;
+}
+
+/* Labels et petits textes */
+label,
+.small-text {
+  font-size: 15px;
+}
+
+/* ======================== */
+/* AJUSTEMENTS SPÉCIFIQUES  */
+/* ======================== */
+
+/* Description hero */
+.hero-description {
+  font-size: 20px !important;
+}
+
+/* Description des features */
+.feature-description {
+  font-size: 17px !important;
+}
+
+/* Description how it works */
+.step-description {
+  font-size: 18px !important;
+}
+
+/* Description blog */
+.blog-card-excerpt {
+  font-size: 16px !important;
+}
+
+/* Réponse FAQ */
+.faq-answer {
+  font-size: 17px !important;
+}
+
+/* Description contact */
+.contact-description,
+.contact-form-subtitle {
+  font-size: 17px !important;
+}
+
+/* Sous-titres des sections */
+.feature-title,
+.step-title,
+.blog-card-title,
+.faq-question-text,
+.contact-form-title {
+  font-size: 22px !important;
+}
+
+/* Texte des badges */
+.hero-badge,
+.features-badge,
+.how-it-works-badge,
+.blog-badge,
+.faq-badge,
+.faq-contact-badge,
+.contact-badge {
+  font-size: 15px !important;
+}
+
+/* Liens de navigation */
+.nav-link {
+  font-size: 19px !important;
+}
+
+/* ======================== */
+/* RESPONSIVE TYPOGRAPHIE   */
+/* ======================== */
+@media (max-width: 768px) {
+  p {
+    font-size: 16px;
+  }
+
+  .hero-description {
+    font-size: 18px !important;
+  }
+
+  .feature-description,
+  .step-description,
+  .blog-card-excerpt,
+  .faq-answer {
+    font-size: 15px !important;
+  }
+
+  .feature-title,
+  .step-title,
+  .blog-card-title,
+  .faq-question-text,
+  .contact-form-title {
+    font-size: 20px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  p {
+    font-size: 15px;
+  }
+
+  .hero-description {
+    font-size: 16px !important;
+  }
+}

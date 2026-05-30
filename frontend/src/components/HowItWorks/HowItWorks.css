@@ -1,0 +1,308 @@
+/* ======================== */
+/* HOW IT WORKS SECTION     */
+/* ======================== */
+.how-it-works-section {
+  position: relative;
+  z-index: 1;
+  padding: 120px 24px;
+  background: var(--bg-primary);
+}
+
+.how-it-works-container {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+/* ======================== */
+/* SECTION HEADER           */
+/* ======================== */
+.how-it-works-header {
+  text-align: center;
+  margin-bottom: 100px;
+}
+
+.how-it-works-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-color);
+  border-radius: 50px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: 24px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.how-it-works-badge-dot {
+  width: 6px;
+  height: 6px;
+  background: var(--accent-primary);
+  border-radius: 50%;
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 0 0 var(--accent-glow); }
+  50% { box-shadow: 0 0 0 8px transparent; }
+}
+
+.how-it-works-title {
+  font-size: 56px;
+  font-weight: 900;
+  line-height: 1.1;
+  letter-spacing: -2px;
+  margin-bottom: 20px;
+  color: var(--text-primary);
+}
+
+.how-it-works-title-accent {
+  background: linear-gradient(135deg, #5B3DF5 0%, #9B7DF5 50%, #C4B5FD 100%);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradient-shift 4s ease-in-out infinite;
+}
+
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.how-it-works-description {
+  font-size: 18px;
+  color: var(--text-secondary);
+  max-width: 500px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+/* ======================== */
+/* STEPS CONTAINER          */
+/* ======================== */
+.steps-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+}
+
+/* Ligne verticale de connexion */
+.steps-line {
+  position: absolute;
+  left: 44px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(
+    180deg,
+    rgba(91, 61, 245, 0.3) 0%,
+    rgba(91, 61, 245, 0.1) 50%,
+    rgba(91, 61, 245, 0.3) 100%
+  );
+  border-radius: 1px;
+}
+
+/* ======================== */
+/* STEP ITEM                */
+/* ======================== */
+.step-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 40px;
+  animation: fadeInUp 0.6s ease-out both;
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ======================== */
+/* STEP NUMBER              */
+/* ======================== */
+.step-number-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.step-number {
+  width: 90px;
+  height: 90px;
+  border-radius: 24px;
+  border: 2px solid;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(22, 22, 22, 0.6);
+  backdrop-filter: blur(10px);
+  font-size: 32px;
+  font-weight: 800;
+  letter-spacing: -1px;
+  transition: all 0.35s ease;
+  position: relative;
+  z-index: 2;
+}
+
+.step-item:hover .step-number {
+  transform: scale(1.05);
+  background: rgba(22, 22, 22, 0.9);
+}
+
+/* Point de connexion */
+.step-dot {
+  position: absolute;
+  right: -22px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  z-index: 3;
+  box-shadow: 0 0 12px currentColor;
+}
+
+/* ======================== */
+/* STEP CONTENT             */
+/* ======================== */
+.step-content {
+  flex: 1;
+  padding-top: 8px;
+}
+
+.step-icon-wrapper {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+.step-icon {
+  font-size: 22px;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.step-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 12px;
+  letter-spacing: -0.5px;
+}
+
+.step-description {
+  font-size: 17px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  max-width: 500px;
+}
+
+/* ======================== */
+/* RESPONSIVE               */
+/* ======================== */
+@media (max-width: 768px) {
+  .how-it-works-section {
+    padding: 80px 16px;
+  }
+
+  .how-it-works-header {
+    margin-bottom: 60px;
+  }
+
+  .how-it-works-title {
+    font-size: 36px;
+    letter-spacing: -1px;
+  }
+
+  .how-it-works-description {
+    font-size: 16px;
+  }
+
+  .steps-line {
+    left: 32px;
+  }
+
+  .step-item {
+    gap: 24px;
+  }
+
+  .step-number {
+    width: 64px;
+    height: 64px;
+    border-radius: 18px;
+    font-size: 24px;
+  }
+
+  .step-dot {
+    right: -16px;
+    width: 8px;
+    height: 8px;
+  }
+
+  .step-title {
+    font-size: 22px;
+  }
+
+  .step-description {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .how-it-works-section {
+    padding: 60px 12px;
+  }
+
+  .how-it-works-title {
+    font-size: 30px;
+  }
+
+  .step-item {
+    gap: 16px;
+  }
+
+  .step-number {
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    font-size: 20px;
+  }
+
+  .step-icon-wrapper {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    margin-bottom: 14px;
+  }
+
+  .step-icon {
+    font-size: 18px;
+  }
+
+  .step-title {
+    font-size: 20px;
+  }
+}
