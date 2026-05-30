@@ -1,6 +1,5 @@
 import 'dotenv/config';
 import express, { Request, Response, NextFunction } from 'express';
-import cors from 'cors';
 import dotenv from 'dotenv';
 import path from 'path';
 import { createServer } from 'http';
@@ -16,22 +15,23 @@ const app = express();
 const httpServer = createServer(app);
 const prisma = new PrismaClient();
 
-// ✅ CORS dynamique
-const allowedOrigins = [
-  'http://localhost:5173',
-  'http://10.72.42.169:5173',
-  'https://uncheck-sternness-scope.ngrok-free.dev',
-];
-
-const io = new Server(httpServer, {
-  cors: {
-    origin: allowedOrigins,
-    methods: ['GET', 'POST'],
-    credentials: true,
-  },
+// ✅ Middleware CORS manuel - TOUT accepter
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', req.headers.origin || '*');
+  res.header('Access-Control-Allow-Credentials', 'true');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  if (req.method === 'OPTIONS') {
+    res.sendStatus(200);
+    return;
+  }
+  next();
 });
 
-app.use(cors({ origin: allowedOrigins, credentials: true }));
+const io = new Server(httpServer, {
+  cors: { origin: '*', methods: ['GET', 'POST'] },
+});
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(passport.initialize());
@@ -44,28 +44,17 @@ app.get('/', (req: Request, res: Response) => {
   res.json({ message: 'Watch Party API is running...' });
 });
 
-// ========================
-// SOCKET.IO
-// ========================
 io.on('connection', (socket) => {
   console.log('🔌 User connected:', socket.id);
 
   socket.on('join-room', (roomCode: string, username: string) => {
     socket.join(roomCode);
-    console.log(`${username} joined room ${roomCode}`);
     socket.to(roomCode).emit('user-joined', { socketId: socket.id, username });
-    const clients = io.sockets.adapter.rooms.get(roomCode);
-    const participants = clients ? Array.from(clients) : [];
-    io.to(roomCode).emit('participants-update', { participants });
   });
 
   socket.on('leave-room', (roomCode: string, username: string) => {
     socket.leave(roomCode);
-    console.log(`${username} left room ${roomCode}`);
     socket.to(roomCode).emit('user-left', { socketId: socket.id, username });
-    const clients = io.sockets.adapter.rooms.get(roomCode);
-    const participants = clients ? Array.from(clients) : [];
-    io.to(roomCode).emit('participants-update', { participants });
   });
 
   socket.on('send-message', async (roomCode: string, data: { username: string; message: string; avatar?: string; userId: string }) => {
@@ -83,30 +72,11 @@ io.on('connection', (socket) => {
     });
   });
 
-  // WebRTC
-  socket.on('screen-share-started', (roomCode: string) => {
-    console.log(`🖥️ Screen share started in room ${roomCode} by ${socket.id}`);
-    socket.to(roomCode).emit('screen-share-started', { hostId: socket.id });
-  });
-
-  socket.on('screen-share-stopped', (roomCode: string) => {
-    console.log(`🖥️ Screen share stopped in room ${roomCode}`);
-    socket.to(roomCode).emit('screen-share-stopped');
-  });
-
-  socket.on('webrtc-offer', (roomCode: string, data: { offer: any; to: string }) => {
-    console.log(`📤 WebRTC offer from ${socket.id} to ${data.to}`);
-    io.to(data.to).emit('webrtc-offer', { offer: data.offer, from: socket.id });
-  });
-
-  socket.on('webrtc-answer', (roomCode: string, data: { answer: any; to: string }) => {
-    console.log(`📥 WebRTC answer from ${socket.id} to ${data.to}`);
-    io.to(data.to).emit('webrtc-answer', { answer: data.answer, from: socket.id });
-  });
-
-  socket.on('webrtc-ice-candidate', (roomCode: string, data: { candidate: any; to: string }) => {
-    io.to(data.to).emit('webrtc-ice-candidate', { candidate: data.candidate, from: socket.id });
-  });
+  socket.on('screen-share-started', (roomCode: string) => socket.to(roomCode).emit('screen-share-started', { hostId: socket.id }));
+  socket.on('screen-share-stopped', (roomCode: string) => socket.to(roomCode).emit('screen-share-stopped'));
+  socket.on('webrtc-offer', (roomCode: string, data: { offer: any; to: string }) => io.to(data.to).emit('webrtc-offer', { offer: data.offer, from: socket.id }));
+  socket.on('webrtc-answer', (roomCode: string, data: { answer: any; to: string }) => io.to(data.to).emit('webrtc-answer', { answer: data.answer, from: socket.id }));
+  socket.on('webrtc-ice-candidate', (roomCode: string, data: { candidate: any; to: string }) => io.to(data.to).emit('webrtc-ice-candidate', { candidate: data.candidate, from: socket.id }));
 
   socket.on('disconnect', () => console.log('🔌 User disconnected:', socket.id));
 });
