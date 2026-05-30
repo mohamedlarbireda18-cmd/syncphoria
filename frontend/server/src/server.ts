@@ -16,23 +16,17 @@ const app = express();
 const httpServer = createServer(app);
 const prisma = new PrismaClient();
 
-// ✅ CORS dynamique
-const allowedOrigins = [
-  'http://localhost:5173',
-  'http://10.72.42.169:5173',
-  'https://uncheck-sternness-scope.ngrok-free.dev',
-  /\.vercel\.app$/,
-];
+// ✅ CORS simplifié pour la production
+app.use(cors({ origin: true, credentials: true }));
 
 const io = new Server(httpServer, {
   cors: {
-    origin: allowedOrigins,
+    origin: true,
     methods: ['GET', 'POST'],
     credentials: true,
   },
 });
 
-app.use(cors({ origin: allowedOrigins, credentials: true }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(passport.initialize());
