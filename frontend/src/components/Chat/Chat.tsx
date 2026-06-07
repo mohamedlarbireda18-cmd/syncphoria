@@ -16,9 +16,12 @@ interface ChatProps {
   currentUser: any;
 }
 
+const EMOJIS = ['😂', '🔥', '😱', '👏', '🤣', '😊'];
+
 const Chat = ({ messages, onSendMessage, currentUser }: ChatProps) => {
   const [input, setInput] = useState('');
   const messagesContainerRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
   const [isAtBottom, setIsAtBottom] = useState(true);
   const prevMessagesLength = useRef(messages.length);
 
@@ -58,6 +61,11 @@ const Chat = ({ messages, onSendMessage, currentUser }: ChatProps) => {
     container.addEventListener('scroll', checkIfAtBottom);
     return () => container.removeEventListener('scroll', checkIfAtBottom);
   }, [checkIfAtBottom]);
+
+  const handleAddEmoji = (emoji: string) => {
+    setInput((prev) => prev + emoji);
+    inputRef.current?.focus();
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -106,18 +114,35 @@ const Chat = ({ messages, onSendMessage, currentUser }: ChatProps) => {
         ))}
       </div>
 
-      <form className="chat-input-form" onSubmit={handleSubmit}>
-        <input
-          type="text"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          placeholder="Type a message..."
-          className="chat-input"
-        />
-        <button type="submit" className="chat-send-btn" disabled={!input.trim()}>
-          <FiSend />
-        </button>
-      </form>
+      <div className="chat-input-panel">
+        <div className="chat-emoji-toolbar">
+          {EMOJIS.map((emoji) => (
+            <button
+              type="button"
+              key={emoji}
+              className="emoji-button"
+              onClick={() => handleAddEmoji(emoji)}
+              aria-label={`Add ${emoji} emoji`}
+            >
+              {emoji}
+            </button>
+          ))}
+        </div>
+
+        <form className="chat-input-form" onSubmit={handleSubmit}>
+          <input
+            ref={inputRef}
+            type="text"
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            placeholder="Type a message..."
+            className="chat-input"
+          />
+          <button type="submit" className="chat-send-btn" disabled={!input.trim()}>
+            <FiSend />
+          </button>
+        </form>
+      </div>
     </div>
   );
 };

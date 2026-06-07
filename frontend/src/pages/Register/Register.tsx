@@ -4,6 +4,7 @@ import { FiMail, FiLock, FiUser, FiArrowRight, FiEye, FiEyeOff } from 'react-ico
 import { SiGoogle, SiGithub } from 'react-icons/si';
 import toast from 'react-hot-toast';
 import emailjs from '@emailjs/browser';
+import { API_URL } from '../../config';
 import { authService } from '../../services/api';
 import logoImage from '../../assets/logo.png';
 import './Register.css';
@@ -109,7 +110,7 @@ const Register = () => {
   };
 
   const handleGoogleLogin = () => {
-    window.location.href = 'http://localhost:5000/api/auth/google';
+    window.location.href = `${API_URL}/auth/google`;
   };
 
   return (

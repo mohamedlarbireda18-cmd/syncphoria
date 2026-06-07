@@ -108,7 +108,7 @@ const handleSubmit = async (e: React.FormEvent) => {
 };
 
   const handleGoogleLogin = () => {
-    window.location.href = 'http://localhost:5000/api/auth/google';
+    window.location.href = `${API_URL}/auth/google`;
   };
 
   return (

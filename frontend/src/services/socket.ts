@@ -15,24 +15,24 @@ export const getSocket = (): Socket => {
 
 export const connectSocket = (): Socket => {
   const s = getSocket();
+
   if (!s.connected) {
     s.connect();
   }
+
   return s;
 };
 
-export const disconnectSocket = () => {
-  // Plus de déconnexion automatique
-};
+export const disconnectSocket = (): void => {
+  const s = getSocket();
 
-export const leaveRoom = (roomCode: string, username: string) => {
-  if (socket?.connected) {
-    socket.emit('leave-room', roomCode, username);
+  if (s.connected) {
+    s.disconnect();
   }
 };
 
-export const fullDisconnect = () => {
-  if (socket?.connected) {
+export const resetSocket = (): void => {
+  if (socket) {
     socket.disconnect();
     socket = null;
   }
