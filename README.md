@@ -12,8 +12,8 @@ Syncphoria
 
 Live Demo
 
-- **Frontend**: [syncphoria.vercel.app](https://syncphoria.vercel.app) 
-- **Backend API**: [syncphoria-api.onrender.com](https://syncphoria-api.onrender.com)
+[syncphoria.vercel.app](https://syncphoria.vercel.app) 
+
 
 ---
 
